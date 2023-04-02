@@ -1,6 +1,8 @@
 export const Routes = {
-  dashboard: '/dashboard',
-  home: '/home',
+  AcceptCode: '/accept-code',
+  Home: '/',
+  Loadout: '/loadout',
+  NotFound: '/:pathMatch(.*)*',
 };
 
 export default Routes;

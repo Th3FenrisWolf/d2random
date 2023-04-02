@@ -2,6 +2,9 @@ import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import router from './router';
 import store from './store';
 import App from './App.vue';
@@ -31,8 +34,11 @@ const vuetify = createVuetify({
   directives,
 });
 
+library.add(faMagnifyingGlass, faUser);
+
 createApp(App)
   .use(store)
   .use(router)
   .use(vuetify)
+  .component('font-awesome-icon', FontAwesomeIcon)
   .mount('#app');

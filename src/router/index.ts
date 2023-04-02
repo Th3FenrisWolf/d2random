@@ -1,39 +1,43 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import {
-  DashboardView,
   HomeView,
+  LoadoutView,
   NotFoundView,
 } from '../views';
+import AcceptCode from '../components/AcceptCode.vue';
 import { Routes } from '../constants';
 
 const routes = [
   {
-    path: '/',
-    redirect: Routes.dashboard,
-  },
-  {
-    path: Routes.dashboard,
-    name: 'Dashboard',
-    component: DashboardView,
-    meta: {
-      title: 'Dashboard | CM Control Center',
-      requiresAuth: true,
-    },
-  },
-  {
-    path: Routes.home,
+    path: Routes.Home,
     name: 'Home',
     component: HomeView,
     meta: {
-      title: 'Home | CM Control Center',
+      title: 'Home | D2Random',
     },
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: Routes.AcceptCode,
+    name: 'Accept Code',
+    component: AcceptCode,
+    meta: {
+      title: '',
+    },
+  },
+  {
+    path: Routes.Loadout,
+    name: 'Loadout',
+    component: LoadoutView,
+    meta: {
+      title: 'Loadout | D2Random',
+    },
+  },
+  {
+    path: Routes.NotFound,
     name: 'Not Found',
     component: NotFoundView,
     meta: {
-      title: 'Not Found | CM Control Center',
+      title: 'Not Found | D2Random',
     },
   },
 ];
