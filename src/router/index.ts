@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {
-  HomeView,
-  LoadoutView,
-  NotFoundView,
-} from '../views';
+import * as Views from '../views';
 import AcceptCode from '../components/AcceptCode.vue';
 import { Routes } from '../constants';
 
@@ -11,7 +7,7 @@ const routes = [
   {
     path: Routes.Home,
     name: 'Home',
-    component: HomeView,
+    component: Views.HomeView,
     meta: {
       title: 'Home | D2Random',
     },
@@ -27,15 +23,23 @@ const routes = [
   {
     path: Routes.Loadout,
     name: 'Loadout',
-    component: LoadoutView,
+    component: Views.LoadoutView,
     meta: {
       title: 'Loadout | D2Random',
     },
   },
   {
+    path: Routes.Random,
+    name: 'Random',
+    component: Views.RandomView,
+    meta: {
+      title: 'Random | D2Random',
+    },
+  },
+  {
     path: Routes.NotFound,
     name: 'Not Found',
-    component: NotFoundView,
+    component: Views.NotFoundView,
     meta: {
       title: 'Not Found | D2Random',
     },

@@ -1,5 +1,5 @@
 <template>
-  <div id="loadout-view">
+  <div id="loadoutView">
     <h1>Loadout View</h1>
 
     <p>Coming Soon...</p>
@@ -8,8 +8,8 @@
 
 <script setup lang="ts" />
 
-<style>
-#loadout-view {
+<style lang="scss">
+#loadoutView {
   display: flex;
   flex-direction: column;
   align-items: center;

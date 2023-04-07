@@ -1,10 +1,10 @@
 import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
-import bungieCode from './modules/bungieCode';
+import bungie from './modules/bungie';
 
 export default createStore({
   modules: {
-    bungieCode,
+    bungie,
   },
   plugins: [
     createPersistedState({

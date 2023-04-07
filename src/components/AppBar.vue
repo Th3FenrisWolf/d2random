@@ -1,131 +1,243 @@
 <template>
-  <div id="app-bar">
+  <div id="appBar">
     <div class="logo">
-      <img src="../assets/logo.png" alt="D2Random" :style="{ height: '50px', width: '50px' }" />
+      <a href="/">
+        <img
+          src="../assets/logo.png"
+          alt="D2Random"
+          :style="{ height: '50px', width: '50px' }"
+        />
+      </a>
     </div>
 
-    <div class="search-bar">
-      <div class="search-wrapper">
-        <label for="searchQueryInput" class="sr-only">Search</label>
-        <input id="searchQueryInput" type="text" placeholder="Search..." />
+    <div class="search">
+      <div class="search-bar">
+        <label for="searchBarInput" class="sr-only">Search</label>
+        <input
+          id="searchBarInput"
+          class="glass"
+          type="text"
+          placeholder="Search..."
+        />
 
-        <div class="glow" />
+        <div class="glow-stick-red" />
 
-        <button id="searchQuerySubmit" type="submit">
+        <button id="searchBarSubmit" type="submit">
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
         </button>
       </div>
     </div>
 
-    <div class="empty">
-      <div class="login">
-        <a href="https://www.bungie.net/en/oauth/authorize?client_id=43690&response_type=code">
-          <label for="login" class="sr-only">Login</label>
-          <v-btn icon>
-            <font-awesome-icon :icon="['fas', 'user']" />
-          </v-btn>
-        </a>
-      </div>
+    <div class="menu">Menu</div>
+
+    <div class="user">
+      <a
+        href="https://www.bungie.net/en/oauth/authorize?client_id=43690&response_type=code"
+      >
+        <button type="button" class="glass">
+          <font-awesome-icon :icon="['fas', 'user']" />
+          <label for="user" class="user-text">{{
+            destinyMembershipId ? 'User' : 'Login'
+          }}</label>
+        </button>
+
+        <div class="glow-stick-red" />
+      </a>
     </div>
   </div>
 </template>
 
-<script setup lang="ts" />
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const Store = useStore();
+
+const destinyMembershipId = computed(
+  () => Store.getters['bungie/destinyMembershipId']
+);
+</script>
 
 <style lang="scss">
-#app-bar {
+#appBar {
   display: grid;
-  grid-template-areas: 'logo search-bar empty';
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: 'logo search menu user';
+  grid-template-columns: 4fr 13fr 2fr 2fr;
+  padding: 8px;
 
   .logo {
     grid-area: logo;
   }
 
-  .search-bar {
+  .menu {
     align-items: center;
     display: flex;
-    grid-area: search-bar;
-    justify-content: center;
+    grid-area: menu;
+    justify-content: flex-end;
     position: relative;
-    width: 100%;
+    z-index: 5;
   }
 
-  .search-wrapper {
+  .user {
     align-items: center;
-    box-shadow: 5px 5px 25px var(--gray-dark-50);
     display: flex;
-    justify-content: center;
+    grid-area: user;
+    justify-content: flex-end;
     position: relative;
     z-index: 5;
 
-    &:hover {
-      #searchQueryInput {
-        width: 512px;
+    a {
+      border-radius: 25px;
+
+      &:active {
+        text-decoration: none;
       }
-    }
 
-    #searchQueryInput {
-      backdrop-filter: blur(7px);
-      background-color: var(--white-10);
-      color: var(--white);
-      height: 40px;
-      outline: none;
-      padding: 0 56px 0 24px;
-      position: relative;
-      transition: all 0.15s cubic-bezier(0.6, 0, 0.6, 1.6);
-      width: 156px;
-      z-index: 10;
+      &:focus-visible {
+        button {
+          backdrop-filter: none;
+          border-color: #00000000;
+        }
 
-      border: none;
-      border-radius: 20px;
-      border-top: 1px solid var(--white-50);
-      border-left: 1px solid var(--white-50);
-
-      &:focus {
-        width: 512px;
-
-        & + .glow::before {
-          width: 460px;
-          margin-left: -230px;
+        .glow-stick-red {
+          display: none;
         }
       }
-
-      &::placeholder {
-        color: var(--white);
-      }
     }
 
-    #searchQuerySubmit {
-      background: none;
-      border: none;
-      color: var(--white);
-      font-size: 16px;
+    button {
+      align-items: center;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
       height: 40px;
-      margin-left: -56px;
-      outline: none;
-      position: relative;
+      overflow: hidden;
+      transition: var(--standard-transition);
       width: 56px;
-      z-index: 20;
+      z-index: 10;
 
       &:hover {
         cursor: pointer;
+        width: 84px;
+
+        .user-text {
+          opacity: 1;
+          width: 40px;
+        }
+
+        svg {
+          opacity: 0;
+          width: 0;
+        }
+
+        & + .glow-stick-red::before {
+          width: 28px;
+        }
+      }
+
+      .user-text {
+        font-size: 14px;
+        opacity: 0;
+        transition: var(--standard-transition);
+        width: 0;
+        z-index: 20;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:focus {
+          text-decoration: none;
+        }
+      }
+
+      svg {
+        transition: var(--standard-transition);
+        width: 40px;
+        z-index: 20;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
-    .glow::before {
-      content: '';
+    .glow-stick-red::before {
       height: 6px;
       width: 0;
-      position: absolute;
-      left: 50%;
-      bottom: -3px;
-      transition: all 0.15s cubic-bezier(0.6, 0, 0.6, 1.6);
-      border-radius: 5px;
-      box-shadow: 0 0 2px var(--red), 0 0 4px var(--red), 0 0 6px var(--red), 0 0 8px var(--red),
-        0 0 10px var(--red);
-      background-color: var(--red);
+      right: 28px;
+      bottom: 4px;
+      transition: var(--standard-transition);
       z-index: 9;
+    }
+  }
+
+  .search {
+    align-items: center;
+    display: flex;
+    grid-area: search;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    .search-bar {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+
+      &:hover {
+        #searchBarInput {
+          width: 512px;
+        }
+      }
+
+      #searchBarInput {
+        border-radius: 20px;
+        font-size: 14px;
+        height: 40px;
+        padding: 0 56px 0 24px;
+        transition: var(--standard-transition);
+        width: 156px;
+        z-index: 10;
+
+        &:focus {
+          width: 512px;
+
+          & + .glow-stick-red::before {
+            width: 460px;
+            margin-left: -230px;
+          }
+        }
+
+        &::placeholder {
+          color: var(--white);
+        }
+      }
+
+      #searchBarSubmit {
+        background: none;
+        border: none;
+        height: 40px;
+        margin-left: -56px;
+        position: relative;
+        width: 56px;
+        z-index: 20;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .glow-stick-red::before {
+        height: 6px;
+        width: 0;
+        left: 50%;
+        bottom: -3px;
+        transition: var(--standard-transition);
+        z-index: 9;
+      }
     }
   }
 }

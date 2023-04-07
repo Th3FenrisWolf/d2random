@@ -3,6 +3,7 @@ export const Routes = {
   Home: '/',
   Loadout: '/loadout',
   NotFound: '/:pathMatch(.*)*',
+  Random: '/random',
 };
 
 export default Routes;

@@ -10,14 +10,14 @@ module.exports = {
     'airbnb-base',
     'airbnb-typescript/base',
     'plugin:vue/vue3-essential',
-    'plugin:vue/vue3-strongly-recommended',
-    'plugin:vue/vue3-recommended',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     project: './tsconfig.json',
   },
   rules: {
+    'implicit-arrow-linebreak': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
